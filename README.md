@@ -45,7 +45,7 @@ graph TB
     NTS3[Korg NTS-3]
 
     %% Mixer
-    MIXER[LZSIG 6-Channel Mixer]
+    MIXER[Behringer RX1602 V2<br/>Rackmount Mixer]
 
     %% USB Connections
     MAC -->|USB-C| APOLLO
@@ -74,14 +74,12 @@ graph TB
     TR6S -->|Audio| MIXER
 
     %% Audio Recording Path Options
-    MIXER -->|Audio| WALRUS
+    MIXER -->|Main Out| WALRUS
+    MIXER -->|Alt Out| BB
     WALRUS -->|Audio| NTS3
     NTS3 -->|Audio| APOLLO
-    APOLLO -->|Audio| MAC
-
-    %% Blackbox Recording Path
-    MIXER -->|Audio| BB
     BB -->|Audio| APOLLO
+    APOLLO -->|Audio| MAC
 
     classDef computer fill:#f9f,stroke:#333,stroke-width:2px
     classDef interface fill:#ff9,stroke:#333,stroke-width:2px
@@ -123,10 +121,12 @@ graph TB
 ### Audio Cables
 | Connection | Cable Type | Quantity | Notes |
 |------------|------------|----------|--------|
-| Synths to LZSIG Mixer | 1/4" TRS or 3.5mm to 1/4" | 8 | Check each synth's output type |
-| LZSIG to Walrus Fundamental | 1/4" TRS | 2 | Stereo pair |
+| Synths to RX1602 | 1/4" TRS or 3.5mm to 1/4" | 16 | Stereo pairs for each input |
+| RX1602 Main Out to Walrus | 1/4" TRS | 2 | Stereo pair |
+| RX1602 Alt Out to Blackbox | 1/4" TRS | 2 | Stereo pair |
 | Walrus to NTS-3 | 1/4" TRS | 2 | Stereo pair |
 | NTS-3 to Apollo Twin | 1/4" TRS | 2 | Stereo pair |
+| Blackbox to Apollo Twin | 1/4" TRS | 2 | Stereo pair |
 
 ## Power Requirements
 | Device | Power Type | Notes |
@@ -143,7 +143,7 @@ graph TB
 | Waldorf Streichfett | 12V DC | PSU included |
 | Roland TR6s | USB-C or 9V DC | Can use USB power |
 | 1010 Music Blackbox | USB-C | Power via USB-C |
-| LZSIG Mixer | 12V DC | PSU included |
+| Behringer RX1602 V2 | IEC Power Cable | Standard computer power cable |
 | Walrus Fundamental | 9V DC | Standard pedal power |
 | Korg NTS-3 | USB-C or Battery | USB power recommended |
 
@@ -161,17 +161,19 @@ graph TB
    - Configure MIDI channels on each device
 
 3. **Signal Flow Configuration**
-   - Set appropriate levels on LZSIG mixer
+   - Set input gains on RX1602 mixer for each stereo channel
+   - Configure Main and Alt output levels
    - Configure effects send/return levels
    - Test MIDI routing through ESI interface
-   - Verify audio paths through system
+   - Verify audio paths through both output routes
 
 ## Workflow Guide
 
 1. **Recording Setup**
-   - Route desired synths to mixer channels
-   - Set appropriate gain staging
-   - Configure effects chain as needed
+   - Route desired synths to stereo mixer channels
+   - Set appropriate gain staging per stereo pair
+   - Configure effects chain on Main output
+   - Use Alt output for parallel processing or direct recording
    - Arm DAW tracks for recording
 
 2. **MIDI Control**
@@ -181,7 +183,7 @@ graph TB
    - Use DAW for MIDI sequencing
 
 3. **Audio Processing**
-   - Use Walrus Fundamental for analog coloration
-   - NTS-3 for digital effects processing
-   - Blackbox for sampling and resampling
-   - Apollo Twin effects for final processing
+   - Use Main output through Walrus/NTS-3 for effects processing
+   - Use Alt output to Blackbox for sampling/resampling
+   - Configure mix between processed and direct signals
+   - Apply Apollo Twin effects for final processing
