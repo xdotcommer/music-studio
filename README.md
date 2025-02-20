@@ -73,13 +73,18 @@ graph TB
     STREICH -->|Audio| MIXER
     TR6S -->|Audio| MIXER
 
-    %% Audio Recording Path Options
-    MIXER -->|Main Out| WALRUS
-    MIXER -->|Alt Out| BB
-    WALRUS -->|Audio| NTS3
+    %% Effects Loop
+    MIXER -->|MON/FX Send| WALRUS
+    WALRUS -->|Return to Ch.8| MIXER
+
+    %% Main Output Path
+    MIXER -->|Main Out| NTS3
     NTS3 -->|Audio| APOLLO
-    BB -->|Audio| APOLLO
     APOLLO -->|Audio| MAC
+
+    %% Control Room Path
+    APOLLO -->|Control Room Out| BB
+    BB -->|Audio| APOLLO
 
     classDef computer fill:#f9f,stroke:#333,stroke-width:2px
     classDef interface fill:#ff9,stroke:#333,stroke-width:2px
@@ -121,11 +126,12 @@ graph TB
 ### Audio Cables
 | Connection | Cable Type | Quantity | Notes |
 |------------|------------|----------|--------|
-| Synths to RX1602 | 1/4" TRS or 3.5mm to 1/4" | 16 | Stereo pairs for each input |
-| RX1602 Main Out to Walrus | 1/4" TRS | 2 | Stereo pair |
-| RX1602 Alt Out to Blackbox | 1/4" TRS | 2 | Stereo pair |
-| Walrus to NTS-3 | 1/4" TRS | 2 | Stereo pair |
+| Synths to RX1602 (Ch.1-7) | 1/4" TRS or 3.5mm to 1/4" | 14 | Stereo pairs for each input |
+| RX1602 MON/FX Send to Walrus | 1/4" TRS | 2 | Stereo effects send |
+| Walrus to RX1602 (Ch.8) | 1/4" TRS | 2 | Effects return to last channel |
+| RX1602 Main Out to NTS-3 | 1/4" TRS | 2 | Stereo pair |
 | NTS-3 to Apollo Twin | 1/4" TRS | 2 | Stereo pair |
+| Apollo Control Room to Blackbox | 1/4" TRS | 2 | Stereo pair |
 | Blackbox to Apollo Twin | 1/4" TRS | 2 | Stereo pair |
 
 ## Power Requirements
@@ -153,6 +159,7 @@ graph TB
    - Install Universal Audio Console software
    - Configure MIDI devices in DAW preferences
    - Set audio interface buffer size based on needs
+   - Configure Apollo Control Room routing
 
 2. **Hardware Connection Order**
    - Connect and power on Apollo Twin X first
@@ -162,18 +169,19 @@ graph TB
 
 3. **Signal Flow Configuration**
    - Set input gains on RX1602 mixer for each stereo channel
-   - Configure Main and Alt output levels
-   - Configure effects send/return levels
+   - Connect Walrus Fundamental to MON/FX send and channel 8
+   - Set MON level to zero on all channels initially
+   - Configure Apollo Control Room output level
    - Test MIDI routing through ESI interface
-   - Verify audio paths through both output routes
+   - Verify audio paths through all outputs
 
 ## Workflow Guide
 
 1. **Recording Setup**
-   - Route desired synths to stereo mixer channels
+   - Route desired synths to stereo mixer channels 1-7
    - Set appropriate gain staging per stereo pair
-   - Configure effects chain on Main output
-   - Use Alt output for parallel processing or direct recording
+   - Use channel 8 to blend in Walrus effects
+   - Configure Apollo Control Room for Blackbox monitoring
    - Arm DAW tracks for recording
 
 2. **MIDI Control**
@@ -183,7 +191,15 @@ graph TB
    - Use DAW for MIDI sequencing
 
 3. **Audio Processing**
-   - Use Main output through Walrus/NTS-3 for effects processing
-   - Use Alt output to Blackbox for sampling/resampling
-   - Configure mix between processed and direct signals
+   - Use MON knobs to send signals to Walrus effects
+   - Blend effects return on channel 8 with dry signals
+   - Use NTS-3 on main output for master effects
+   - Use Apollo Control Room for Blackbox sampling
    - Apply Apollo Twin effects for final processing
+
+4. **Effects Management**
+   - Adjust individual MON sends per channel for effects depth
+   - Use channel 8 fader to control overall effects level
+   - Pan channel 8 to taste for stereo effects placement
+   - Monitor effects mix through main outputs
+   - Use Apollo Console for Control Room routing
