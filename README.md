@@ -20,7 +20,7 @@ This studio setup combines modern digital audio workstation capabilities with an
 ## System Diagram
 
 ```mermaid
-graph TB
+flowchart LR
     %% Computer and Interface
     MAC[Mac Studio]
     APOLLO[UA Apollo Twin X]
@@ -47,45 +47,46 @@ graph TB
     %% Mixer
     MIXER[Behringer RX1602 V2<br/>Rackmount Mixer]
 
-    %% USB Connections
-    MAC -->|USB-C| APOLLO
-    MAC -->|USB| MIDI_HUB
+    %% USB Connections with right angles
+    MAC === APOLLO
+    MAC === MIDI_HUB
 
     %% MIDI Controllers to Interface
-    KEY37 -->|USB| MIDI_HUB
-    PADK -->|USB| MIDI_HUB
+    KEY37 === MIDI_HUB
+    PADK === MIDI_HUB
 
     %% MIDI Connections
-    MIDI_HUB -->|MIDI| MICRO
-    MIDI_HUB -->|MIDI| VOLCAFM
-    MIDI_HUB -->|MIDI| NUBASS
-    MIDI_HUB -->|MIDI| DM12
-    MIDI_HUB -->|MIDI| PROMINI
-    MIDI_HUB -->|MIDI| STREICH
-    MIDI_HUB -->|MIDI| TR6S
-    MIDI_HUB -->|MIDI| BB
+    MIDI_HUB ===|MIDI| MICRO
+    MIDI_HUB ===|MIDI| VOLCAFM
+    MIDI_HUB ===|MIDI| NUBASS
+    MIDI_HUB ===|MIDI| DM12
+    MIDI_HUB ===|MIDI| PROMINI
+    MIDI_HUB ===|MIDI| STREICH
+    MIDI_HUB ===|MIDI| TR6S
+    MIDI_HUB ===|MIDI| BB
 
     %% Audio Connections to Mixer
-    MICRO -->|Audio| MIXER
-    VOLCAFM -->|Audio| MIXER
-    NUBASS -->|Audio| MIXER
-    DM12 -->|Audio| MIXER
-    STREICH -->|Audio| MIXER
-    TR6S -->|Audio| MIXER
+    MICRO ===|Audio| MIXER
+    VOLCAFM ===|Audio| MIXER
+    NUBASS ===|Audio| MIXER
+    DM12 ===|Audio| MIXER
+    STREICH ===|Audio| MIXER
+    TR6S ===|Audio| MIXER
 
     %% Effects Loop
-    MIXER -->|MON/FX Send| WALRUS
-    WALRUS -->|Return to Ch.8| MIXER
+    MIXER ===|MON/FX Send| WALRUS
+    WALRUS ===|Return to Ch.8| MIXER
 
     %% Main Output Path
-    MIXER -->|Main Out| NTS3
-    NTS3 -->|Audio| APOLLO
-    APOLLO -->|Audio| MAC
+    MIXER ===|Main Out| NTS3
+    NTS3 === APOLLO
+    APOLLO === MAC
 
     %% Control Room Path
-    APOLLO -->|Control Room Out| BB
-    BB -->|Audio| APOLLO
+    APOLLO ===|Control Room Out| BB
+    BB ===|Audio| APOLLO
 
+    %% Styling
     classDef computer fill:#f9f,stroke:#333,stroke-width:2px
     classDef interface fill:#ff9,stroke:#333,stroke-width:2px
     classDef controller fill:#9ff,stroke:#333,stroke-width:2px
