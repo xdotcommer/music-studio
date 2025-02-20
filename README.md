@@ -116,7 +116,7 @@ flowchart LR
 ### MIDI Cables
 | Connection | Cable Type | Quantity | Notes |
 |------------|------------|----------|--------|
-| ESI M4U eX to MicroFreak | 5-pin DIN MIDI | 1 | |
+| ESI M4U eX to MicroFreak | 5-pin DIN MIDI | 1 | Requires MIDI adapter |
 | ESI M4U eX to Volca FM2 | 5-pin DIN to 3.5mm MIDI | 1 | Requires MIDI adapter |
 | ESI M4U eX to Volca Nubass | 5-pin DIN to 3.5mm MIDI | 1 | Requires MIDI adapter |
 | ESI M4U eX to Deepmind 12D | 5-pin DIN MIDI | 1 | |
